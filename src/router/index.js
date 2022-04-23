@@ -12,15 +12,55 @@ import Tables from "../views/Tables.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 
+
+function authGuard(to, from, next)
+{
+ var isAuthenticated= false;
+if(localStorage.getItem('token'))
+  isAuthenticated = true;
+ else
+  isAuthenticated= false;
+
+ if(isAuthenticated) 
+ {
+  next(); // allow to enter route
+ } 
+ else
+ {
+  next('/login'); // go to '/login';
+ }
+}
+
+function loginGuard(to, from, next)
+{
+ var isAuthenticated= false;
+if(localStorage.getItem('token'))
+  isAuthenticated = true;
+ else
+  isAuthenticated= false;
+
+ if(isAuthenticated) 
+ {
+  next('/dashboard'); // go to '/dashboard';
+ } 
+ else
+ {
+  next(); // allow to enter route;
+ }
+}
+
+
 const routes = [
   {
     path: "/",
     redirect: "/dashboard",
+    beforeEnter : authGuard,
     component: DashboardLayout,
     children: [
       {
         path: "/dashboard",
         name: "dashboard",
+        beforeEnter : authGuard,
         components: { default: Dashboard },
       },
       {
@@ -53,11 +93,13 @@ const routes = [
       {
         path: "/login",
         name: "login",
+        beforeEnter : loginGuard,
         components: { default: Login },
       },
       {
         path: "/register",
         name: "register",
+        beforeEnter : loginGuard,
         components: { default: Register },
       },
     ],

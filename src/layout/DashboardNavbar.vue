@@ -54,10 +54,10 @@
             <span>Support</span>
           </router-link>
           <div class="dropdown-divider"></div>
-          <router-link to="/profile" class="dropdown-item">
+          <a href="javascript:void(0);" class="dropdown-item" @click="logout">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
-          </router-link>
+          </a>
         </base-dropdown>
       </li>
     </ul>
@@ -82,6 +82,10 @@ export default {
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
+    logout() {
+        localStorage.removeItem('token');
+        this.$router.push('/login');
+    }
   },
 };
 </script>

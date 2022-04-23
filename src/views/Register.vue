@@ -25,12 +25,12 @@
           <div class="text-center text-muted mb-4">
             <small>Or sign up with credentials</small>
           </div>
-          <form role="form">
+          <form role="form" @submit.prevent="submitForm">
             <base-input
               formClasses="input-group-alternative"
-              placeholder="Name"
+              placeholder="Username"
               addon-left-icon="ni ni-hat-3"
-              v-model="model.name"
+              v-model="model.username"
             >
             </base-input>
 
@@ -69,9 +69,7 @@
               </div>
             </div>
             <div class="text-center">
-              <base-button type="primary" class="my-4"
-                >Create account</base-button
-              >
+              <button class="input-group-text bg-primary text-white text-center mx-auto"  @click="reset">Create Account</button>
             </div>
           </form>
         </div>
@@ -92,16 +90,36 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "register",
   data() {
     return {
       model: {
-        name: "",
+        username: "",
         email: "",
         password: "",
       },
     };
+  },
+  methods: {
+    
+   submitForm() {
+      
+        axios.post("http://localhost:8000/api/register/", this.model
+          )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    reset() {
+      this.model.username = "";
+      this.model.email = "";
+      this.model.password = "";
+    },
   },
 };
 </script>

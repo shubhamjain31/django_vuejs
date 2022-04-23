@@ -67,7 +67,7 @@
               <span>Support</span>
             </router-link>
             <div class="dropdown-divider"></div>
-            <a href="#!" class="dropdown-item">
+            <a href="javascript:void(0);" class="dropdown-item" @click="logout">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
@@ -165,6 +165,10 @@ export default {
     },
     showSidebar() {
       this.$sidebar.displaySidebar(true);
+    },
+    logout() {
+      localStorage.removeItem('token');
+      this.$router.push('/login');
     },
   },
   beforeUnmount() {

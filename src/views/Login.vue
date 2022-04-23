@@ -25,12 +25,12 @@
           <div class="text-center text-muted mb-4">
             <small>Or sign in with credentials</small>
           </div>
-          <form role="form">
+          <form role="form" @submit.prevent="submitForm">
             <base-input
               formClasses="input-group-alternative mb-3"
-              placeholder="Email"
-              addon-left-icon="ni ni-email-83"
-              v-model="model.email"
+              placeholder="Username"
+              addon-left-icon="ni ni-hat-3"
+              v-model="model.username"
             >
             </base-input>
 
@@ -47,7 +47,7 @@
               <span class="text-muted">Remember me</span>
             </base-checkbox>
             <div class="text-center">
-              <base-button type="primary" class="my-4">Sign in</base-button>
+              <button class="input-group-text bg-primary text-white text-center mx-auto">Sign in</button>
             </div>
           </form>
         </div>
@@ -66,15 +66,33 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "login",
   data() {
     return {
       model: {
-        email: "",
+        username: "",
         password: "",
       },
     };
+  },
+  methods: {
+    
+   submitForm() {
+        let self = this;
+        axios.post("http://localhost:8000/api/login/", this.model
+          )
+        .then(function (response) {
+          if(response['data']['status'] === 200){
+            localStorage.setItem('token', response['data']['access']);
+            self.$router.push({name: "dashboard"});
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
