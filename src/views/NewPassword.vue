@@ -4,36 +4,15 @@
       <div class="card bg-secondary shadow border-0">
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3">
-            <small>Sign in with</small>
+            <small>Reset Password</small>
           </div>
-          <div class="btn-wrapper text-center">
-            <a href="#" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="img/icons/common/github.svg"
-              /></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="#" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="img/icons/common/google.svg"
-              /></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
+          
         </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <small>Or sign in with credentials</small>
+            <small>Reset Password</small>
           </div>
           <form role="form" @submit.prevent="submitForm">
-            <base-input
-              formClasses="input-group-alternative mb-3"
-              placeholder="Username"
-              addon-left-icon="ni ni-hat-3"
-              v-model="model.username"
-            >
-            </base-input>
-
             <base-input
               formClasses="input-group-alternative mb-3"
               placeholder="Password"
@@ -43,19 +22,25 @@
             >
             </base-input>
 
-            <base-checkbox class="custom-control-alternative">
-              <span class="text-muted">Remember me</span>
-            </base-checkbox>
+            <base-input
+              formClasses="input-group-alternative mb-3"
+              placeholder="Re-Password"
+              type="password"
+              addon-left-icon="ni ni-lock-circle-open"
+              v-model="model.repassword"
+            >
+            </base-input>
+
             <div class="text-center">
-              <button class="input-group-text bg-primary text-white text-center mx-auto">Sign in</button>
+              <button class="input-group-text bg-primary text-white text-center mx-auto">Reset</button>
             </div>
           </form>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-6">
-          <router-link to="/forget-password" class="text-light"
-            ><small>Forgot password?</small>
+          <router-link to="/login" class="text-light">
+            <small>Login</small>
           </router-link>
         </div>
         <div class="col-6 text-right">
@@ -70,12 +55,12 @@
 <script>
 import axios from "axios";
 export default {
-  name: "login",
+  name: "new-password",
   data() {
     return {
       model: {
-        username: "",
         password: "",
+        repassword: "",
       },
     };
   },
@@ -84,21 +69,20 @@ export default {
    submitForm() {
         let self = this;
 
-         if(this.model.username.trim().length===0){
-          self.$toast.error(`Enter Username`, {"position": "top-right", "duration": 3000});
-          return;
-        }
-
-        if(this.model.password.trim().length===0){
+         if(this.model.password.trim().length===0){
           self.$toast.error(`Enter Password`, {"position": "top-right", "duration": 3000});
           return;
         }
 
-        axios.post("http://localhost:8000/api/login/", this.model
+        if(this.model.repassword.trim().length===0){
+          self.$toast.error(`Enter Re-Password`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        axios.post("http://localhost:8000/api/reset-password/", this.model
           )
         .then(function (response) {
           if(response["data"]["status"] === 200){
-            localStorage.setItem("token", response["data"]["access"]);
             self.$router.push({name: "dashboard"});
           }
         })

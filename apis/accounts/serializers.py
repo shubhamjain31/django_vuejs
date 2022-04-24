@@ -1,6 +1,7 @@
-from dataclasses import field
 from rest_framework  import serializers
 from django.contrib.auth.models import User
+from accounts.models import *
+import uuid
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    # email       = serializers.EmailField()
     username    = serializers.CharField()
     password    = serializers.CharField()
+
+class ForgetPasswordSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = PasswordRecovery
+        fields = ['email', 'reset_link', 'ip_address', 'user_agents']

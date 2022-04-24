@@ -11,6 +11,8 @@ import Tables from "../views/Tables.vue";
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import ForgetPassword from "../views/ForgetPassword.vue";
+import NewPassword from "../views/NewPassword.vue";
 
 
 function authGuard(to, from, next)
@@ -101,6 +103,18 @@ const routes = [
         name: "register",
         beforeEnter : loginGuard,
         components: { default: Register },
+      },
+      {
+        path: "/forget-password",
+        name: "forget-password",
+        beforeEnter : loginGuard,
+        components: { default: ForgetPassword },
+      },
+      {
+        path: "/new-password/:id",
+        name: "new-password",
+        beforeEnter : loginGuard,
+        components: { default: NewPassword },
       },
     ],
   },

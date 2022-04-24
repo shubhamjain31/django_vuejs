@@ -76,9 +76,9 @@
       </div>
       <div class="row mt-3">
         <div class="col-6">
-          <a href="#" class="text-light">
-            <small>Forgot password?</small>
-          </a>
+          <router-link to="/forget-password" class="text-light"
+            ><small>Forgot password?</small>
+          </router-link>
         </div>
         <div class="col-6 text-right">
           <router-link to="/login" class="text-light">
@@ -106,25 +106,25 @@ export default {
     
    submitForm() {
       let self = this;
-        if(this.model.username.trim().length === 0){
-          self.$toast.error(`Enter Username`, {'position': 'top-right', 'duration': 3000});
+        if(this.model.username.trim().length===0){
+          self.$toast.error(`Enter Username`, {"position": "top-right", "duration": 3000});
           return;
         }
 
-        if(this.model.email.trim().length === 0){
-          self.$toast.error(`Enter Email`, {'position': 'top-right', 'duration': 3000});
+        if(this.model.email.trim().length===0){
+          self.$toast.error(`Enter Email`, {"position": "top-right", "duration": 3000});
           return;
         }
 
-        if(this.model.password.trim().length === 0){
-          self.$toast.error(`Enter Password`, {'position': 'top-right', 'duration': 3000});
+        if(this.model.password.trim().length===0){
+          self.$toast.error(`Enter Password`, {"position": "top-right", "duration": 3000});
           return;
         }
         axios.post("http://localhost:8000/api/register/", this.model
           )
         .then(function (response) {
-          if(response['data']['status'] === 200){
-            self.$toast.success(`User Registered Successfully!`, {'position': 'top-right', 'duration': 3000});
+          if(response["data"]["status"] === 200){
+            self.$toast.success(`User Registered Successfully!`, {"position": "top-right", "duration": 3000});
             self.reset();
           }
         })

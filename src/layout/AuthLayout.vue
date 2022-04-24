@@ -33,7 +33,7 @@
           </div>
         </div>
         <!-- Navbar items -->
-        <ul class="navbar-nav ml-auto">
+        <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/">
               <i class="ni ni-planet"></i>
@@ -58,7 +58,7 @@
               <span class="nav-link-inner--text">Profile</span>
             </router-link>
           </li>
-        </ul>
+        </ul> -->
       </template>
     </base-nav>
     <!-- Header -->
@@ -67,11 +67,11 @@
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
+              <!-- <h1 class="text-white">Welcome!</h1>
               <p class="text-lead text-white">
                 Use these awesome forms to login or create new account in your
                 project for free.
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
@@ -103,15 +103,14 @@
             <div class="copyright text-center text-xl-left text-muted">
               &copy; {{ year }}
               <a
-                href="https://www.creative-tim.com"
+                href="#"
                 class="font-weight-bold ml-1"
-                target="_blank"
-                >Creative Tim</a
+                >Shubham</a
               >
             </div>
           </div>
           <div class="col-xl-6">
-            <ul
+            <!-- <ul
               class="nav nav-footer justify-content-center justify-content-xl-end"
             >
               <li class="nav-item">
@@ -146,7 +145,7 @@
                   >MIT License</a
                 >
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
       </div>

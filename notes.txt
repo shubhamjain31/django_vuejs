@@ -1,0 +1,1 @@
+https://github.com/MeForma/vue-toaster
