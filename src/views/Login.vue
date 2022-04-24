@@ -81,6 +81,17 @@ export default {
     
    submitForm() {
         let self = this;
+
+         if(this.model.username.trim().length === 0){
+          self.$toast.error(`Enter Username`, {'position': 'top-right', 'duration': 3000});
+          return;
+        }
+
+        if(this.model.password.trim().length === 0){
+          self.$toast.error(`Enter Password`, {'position': 'top-right', 'duration': 3000});
+          return;
+        }
+
         axios.post("http://localhost:8000/api/login/", this.model
           )
         .then(function (response) {

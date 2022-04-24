@@ -69,7 +69,7 @@
               </div>
             </div>
             <div class="text-center">
-              <button class="input-group-text bg-primary text-white text-center mx-auto"  @click="reset">Create Account</button>
+              <button class="input-group-text bg-primary text-white text-center mx-auto" >Create Account</button>
             </div>
           </form>
         </div>
@@ -105,11 +105,28 @@ export default {
   methods: {
     
    submitForm() {
-      
+      let self = this;
+        if(this.model.username.trim().length === 0){
+          self.$toast.error(`Enter Username`, {'position': 'top-right', 'duration': 3000});
+          return;
+        }
+
+        if(this.model.email.trim().length === 0){
+          self.$toast.error(`Enter Email`, {'position': 'top-right', 'duration': 3000});
+          return;
+        }
+
+        if(this.model.password.trim().length === 0){
+          self.$toast.error(`Enter Password`, {'position': 'top-right', 'duration': 3000});
+          return;
+        }
         axios.post("http://localhost:8000/api/register/", this.model
           )
         .then(function (response) {
-          console.log(response);
+          if(response['data']['status'] === 200){
+            self.$toast.success(`User Registered Successfully!`, {'position': 'top-right', 'duration': 3000});
+            self.reset();
+          }
         })
         .catch(function (error) {
           console.log(error);
