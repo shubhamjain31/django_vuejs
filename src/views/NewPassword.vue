@@ -68,6 +68,7 @@ export default {
     
    submitForm() {
         let self = this;
+        this.model['reset_link'] = self.$route.params.id;
 
          if(this.model.password.trim().length===0){
           self.$toast.error(`Enter Password`, {"position": "top-right", "duration": 3000});
@@ -79,11 +80,26 @@ export default {
           return;
         }
 
-        axios.post("http://localhost:8000/api/reset-password/", this.model
+        if(this.model.password.length<8 || this.model.repassword.length<8){
+          self.$toast.error(`Password Length Must Be 8 Characters!`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.password!=this.model.repassword){
+          self.$toast.error(`Password Not Matching!`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        axios.patch("http://localhost:8000/api/forget-password/", this.model
           )
         .then(function (response) {
           if(response["data"]["status"] === 200){
-            self.$router.push({name: "dashboard"});
+            self.$router.push({name: "login"});
+            self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
+          }
+
+          if(response["data"]["status"] ===400){
+            self.$toast.error(response["data"]["message"], {"position": "top-right", "duration": 3000});
           }
         })
         .catch(function (error) {

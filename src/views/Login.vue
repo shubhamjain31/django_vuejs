@@ -101,6 +101,10 @@ export default {
             localStorage.setItem("token", response["data"]["access"]);
             self.$router.push({name: "dashboard"});
           }
+
+          if(response["data"]["status"] === 400){
+            self.$toast.error(response["data"]["message"], {"position": "top-right", "duration": 3000});
+          }
         })
         .catch(function (error) {
           console.log(error);

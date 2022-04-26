@@ -1,8 +1,11 @@
 import threading
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
+
+from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -65,9 +68,12 @@ class RegisterAPI(APIView):
             print(e)
 
 class LoginAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def post(self, request):
         try:
             data = request.data
+            print(data)
             serializer = LoginSerializer(data=data)
             if serializer.is_valid():
                 username = serializer.data['username']
@@ -100,6 +106,9 @@ class LoginAPI(APIView):
             print(e)
 
 class ForgetPasswordAPI(APIView):
+    def get_object(self, reset_link):
+        return PasswordRecovery.objects.get(reset_link=reset_link)
+
     def post(self, request):
         try:
             data = request.data
@@ -132,5 +141,26 @@ class ForgetPasswordAPI(APIView):
                 'data':     serializer.data
             })
             
+        except Exception as e:
+            print(e)
+
+    def patch(self, request):
+        try:
+            data = request.data
+            try:
+                obj = self.get_object(data['reset_link'])
+            except:
+                return Response({
+                'status':   400,
+                'message': 'Invalid Token!',
+            })
+
+            User.objects.filter(email=obj.email).update(password=make_password(data['password']))
+            obj.delete()
+                
+            return Response({
+                'status': 200,
+                'message': 'Password Reset Successfully. Login To Continue',
+            })
         except Exception as e:
             print(e)
