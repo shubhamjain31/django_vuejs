@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'accounts',
     'home',
+    'employee',
     'froala_editor',
     'rest_framework',
     'rest_framework_simplejwt',

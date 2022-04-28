@@ -1,7 +1,6 @@
 from rest_framework  import serializers
 from django.contrib.auth.models import User
 from accounts.models import *
-import uuid
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

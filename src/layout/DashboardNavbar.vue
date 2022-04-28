@@ -8,7 +8,7 @@
     <form
       class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
     >
-      <div class="form-group mb-0">
+      <!-- <div class="form-group mb-0">
         <base-input
           placeholder="Search"
           class="input-group-alternative"
@@ -16,7 +16,7 @@
           addon-right-icon="fas fa-search"
         >
         </base-input>
-      </div>
+      </div> -->
     </form>
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item dropdown">
@@ -26,7 +26,7 @@
               <span class="avatar avatar-sm rounded-circle">
                 <img
                   alt="Image placeholder"
-                  src="img/theme/team-4-800x800.jpg"
+                  src="img/theme/logo.jpg"
                 />
               </span>
               <div class="media-body ml-2 d-none d-lg-block">

@@ -16,44 +16,44 @@
 
         <sidebar-item
           :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
+            name: 'Home',
+            icon: 'ni ni-send text-blue',
             path: '/icons',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'Maps',
-            icon: 'ni ni-pin-3 text-orange',
+            name: 'User Profile',
+            icon: 'ni ni-paper-diploma text-orange',
             path: '/maps',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'User Profile',
+            name: 'Employee',
             icon: 'ni ni-single-02 text-yellow',
             path: '/profile',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'Tables',
-            icon: 'ni ni-bullet-list-67 text-red',
+            name: 'Leave',
+            icon: 'ni ni-calendar-grid-58',
             path: '/tables',
           }"
         />
-        <sidebar-item
+         <sidebar-item
           :link="{
-            name: 'Login',
-            icon: 'ni ni-key-25 text-info',
-            path: '/login',
+            name: 'Birthday',
+            icon: 'ni ni-box-2 text-success',
+            path: '/tables',
           }"
         />
-        <sidebar-item
+         <sidebar-item
           :link="{
-            name: 'Register',
-            icon: 'ni ni-circle-08 text-pink',
-            path: '/register',
+            name: 'Logout',
+            icon: 'ni ni-user-run text-red',
+            path: '/tables',
           }"
         />
       </template>
