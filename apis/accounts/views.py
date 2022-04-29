@@ -1,4 +1,5 @@
 import threading
+from async_timeout import timeout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,9 +10,13 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
 
 from accounts.serializers import *
 from accounts.models import *
+
+CACHE_TTL = getattr(settings ,'CACHE_TTL' , DEFAULT_TIMEOUT)
 
 # Create your views here.
 
@@ -121,6 +126,7 @@ class ForgetPasswordAPI(APIView):
                 serializer.save()
                 email       = serializer.data['email']
                 reset_link  = serializer.data['reset_link']
+                cache.set('token', reset_link, timeout=CACHE_TTL)
 
                 if not User.objects.filter(email = email).exists():
                     return Response({
@@ -155,8 +161,14 @@ class ForgetPasswordAPI(APIView):
                 'message': 'Invalid Token!',
             })
 
-            User.objects.filter(email=obj.email).update(password=make_password(data['password']))
-            obj.delete()
+            if cache.get('token') is None:
+                return Response({
+                'status':   400,
+                'message': 'Your password reset link has expired!'
+                })
+            else:
+                User.objects.filter(email=obj.email).update(password=make_password(data['password']))
+                obj.delete()
                 
             return Response({
                 'status': 200,

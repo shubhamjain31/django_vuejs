@@ -161,3 +161,16 @@ EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
 SITE_URL = 'http://localhost:8080'
 ADMIN_EMAIL = 'sj27754@gmail.com'
+
+CACHE_TTL = 60 * 5                   #in seconds
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
