@@ -23,6 +23,13 @@
         />
         <sidebar-item
           :link="{
+            name: 'Users',
+            icon: 'ni ni-circle-08 text-warning',
+            path: '/users',
+          }"
+        />
+        <sidebar-item
+          :link="{
             name: 'User Profile',
             icon: 'ni ni-paper-diploma text-orange',
             path: '/maps',

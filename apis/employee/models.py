@@ -334,8 +334,8 @@ class Employee(models.Model):
     tinnumber   = models.CharField(_('TIN'),max_length=15,null=True,blank=True)
 
     # COMPANY DATA
-    department      =  models.ForeignKey(Department,verbose_name =_('Department'),on_delete=models.SET_NULL,null=True,default=None)
-    role            =  models.ForeignKey(Role,verbose_name =_('Role'),on_delete=models.SET_NULL,null=True,default=None)
+    department      = models.ForeignKey(Department,verbose_name =_('Department'),on_delete=models.SET_NULL,null=True,default=None)
+    role            = models.ForeignKey(Role,verbose_name =_('Role'),on_delete=models.SET_NULL,null=True,default=None)
     startdate       = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True)
     employeetype    = models.CharField(_('Employee Type'),max_length=15,default=FULL_TIME,choices=EMPLOYEETYPE,blank=False,null=True)
     employeeid      = models.CharField(_('Employee ID Number'),max_length=10,null=True,blank=True)

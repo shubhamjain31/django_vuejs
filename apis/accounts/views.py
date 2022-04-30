@@ -73,7 +73,7 @@ class RegisterAPI(APIView):
             print(e)
 
 class LoginAPI(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     
     def post(self, request):
         try:

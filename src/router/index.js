@@ -13,6 +13,8 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import ForgetPassword from "../views/ForgetPassword.vue";
 import NewPassword from "../views/NewPassword.vue";
+import Users from "../views/users.vue";
+import AddEditUser from "../views/AddEditUser.vue";
 
 
 function authGuard(to, from, next)
@@ -84,6 +86,16 @@ const routes = [
         path: "/tables",
         name: "tables",
         components: { default: Tables },
+      },
+      {
+        path: "/users",
+        name: "users",
+        components: { default: Users },
+      },
+      {
+        path: "/add-edit-user",
+        name: "add-edit-user",
+        components: { default: AddEditUser },
       },
     ],
   },
