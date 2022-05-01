@@ -18,7 +18,7 @@
                     <h3 class="mb-0">All Users</h3>
                   </div>
                   <div class="col-4 text-right">
-                    <a href="/add-edit-user" class="btn btn-sm btn-primary">Add</a>
+                    <router-link to="/add-edit-user"><button class="btn btn-sm btn-primary">Add</button></router-link>
                   </div>
                 </div>
               </div>
@@ -28,7 +28,29 @@
               <h6 class="heading-small text-muted mb-4">User information</h6>
               <div class="pl-lg-4">
                 <div class="row">
-                 
+                 <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td class="text-center font-weight-bold" v-if="login">No User</td>
+                        <td></td>
+                      </tr>
+                      <tr v-if="!login">
+                        <th scope="row">1</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
               
@@ -43,19 +65,22 @@
 export default {
   name: "users",
   data() {
-    return {
-      model: {
-        username: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        country: "",
-        zipCode: "",
-        about: "",
-      },
-    };
+    // return {
+    //   model: {
+    //     username: "",
+    //     email: "",
+    //     firstName: "",
+    //     lastName: "",
+    //     address: "",
+    //     city: "",
+    //     country: "",
+    //     zipCode: "",
+    //     about: "",
+    //   },
+    // };
+  return{
+    login: true,
+  }
   },
 };
 </script>

@@ -94,7 +94,6 @@ class LoginAPI(APIView):
                     })
 
                 refresh = RefreshToken.for_user(user)
-                print(refresh)
                 return Response({
                     'status': 200,
                     'refresh': str(refresh),
@@ -174,5 +173,67 @@ class ForgetPasswordAPI(APIView):
                 'status': 200,
                 'message': 'Password Reset Successfully. Login To Continue',
             })
+        except Exception as e:
+            print(e)
+
+class RegisterAPI(APIView):
+    def post(self, request):
+        try:
+            data = request.data
+            serializer = UserSerializer(data=data, context={'request': request})
+            if serializer.is_valid():
+                serializer.save()
+
+                email = serializer.data['email']
+                user_profile = UserProfile.objects.get(user__email = email)
+
+                user_profile.ip_address  = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip()
+                user_profile.user_agents = request.META['HTTP_USER_AGENT']
+                user_profile.save()
+
+                return Response({
+                    'status':   200,
+                    'message': 'Registration Successfully!',
+                    'data':     serializer.data
+                })
+            
+            return Response({
+                    'status':   400,
+                    'message': 'Something Went Wrong!',
+                    'data':     serializer.errors
+                })
+        except Exception as e:
+            print(e)
+
+class UserAPI(APIView):    
+    def post(self, request):
+        try:
+            data = request.data
+            serializer = UserSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
+            
+        except Exception as e:
+            print(e)
+
+    def get(self, request):
+        try:
+            data = request.data
+            serializer = UserSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
+            
         except Exception as e:
             print(e)
