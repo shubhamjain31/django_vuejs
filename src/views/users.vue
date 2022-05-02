@@ -29,24 +29,28 @@
               <div class="pl-lg-4">
                 <div class="row">
                  <table class="table">
-                    <thead>
+                    <thead class="text-center">
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Sr No.</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Added At</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody class="text-center">
+                      <tr v-if="all_users.length==0">
                         <td></td>
-                        <td class="text-center font-weight-bold" v-if="login">No User</td>
+                        <td></td>
+                        <td class="text-center font-weight-bold">No User</td>
+                        <td></td>
                         <td></td>
                       </tr>
-                      <tr v-if="!login">
-                        <th scope="row">1</th>
-                        <td></td>
-                        <td></td>
+                      <tr v-for="(item, index) in all_users.data" :key="item.id">
+                        <th scope="row">{{index}}</th>
+                        <td>{{capitalize(item.username)}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{format_date(item.date_joined)}}</td>
                         <td></td>
                       </tr>
                     </tbody>
@@ -62,26 +66,47 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import moment from 'moment'
+// this.all_users = [];
+
 export default {
   name: "users",
   data() {
-    // return {
-    //   model: {
-    //     username: "",
-    //     email: "",
-    //     firstName: "",
-    //     lastName: "",
-    //     address: "",
-    //     city: "",
-    //     country: "",
-    //     zipCode: "",
-    //     about: "",
-    //   },
-    // };
+    this.getItems();
   return{
-    login: true,
+    all_users : {},
   }
   },
+  methods: {
+    format_date(value){
+         if (value) {
+           return moment(String(value)).format('DD-MM-YYYY')
+          }
+      },
+      
+    capitalize(value) {
+      const [firstLetter, ...rest] = value.split('');
+      const upperCaseLetter = firstLetter.toUpperCase();
+      
+      if (firstLetter != upperCaseLetter) {
+        return firstLetter.toUpperCase() + rest.join('');
+      }
+    },
+
+    getItems(){
+        axios.get('http://localhost:8000/api/users',{
+            headers: {
+            Authorization: 'Token ' + localStorage.getItem('token')
+            }
+          })
+          .then(response =>{
+            if(response["data"]["status"] === 200){
+              this.all_users = response.data;
+            }
+          })
+    },
+  }
 };
 </script>
 <style></style>

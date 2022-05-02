@@ -224,16 +224,14 @@ class UserAPI(APIView):
 
     def get(self, request):
         try:
-            data = request.data
-            serializer = UserSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-
+            all_users = User.objects.all()
+            serializer = UserSerializer(all_users,  many=True)
+            
             return Response({
-                'status':   400,
-                'message': 'Something Went Wrong!',
-                'data':     serializer.data
-            })
+                    'status':   200,
+                    'message': 'Registration Successfully!',
+                    'data':     serializer.data
+                })
             
         except Exception as e:
             print(e)
