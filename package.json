@@ -18,7 +18,7 @@
     "google-maps": "4.3.3",
     "nouislider": "14.6.0",
     "v-toaster": "^1.0.3",
-    "vue": "3.0.5",
+    "vue": "^3.0.5",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "4.0.1",
     "vue-toast-notification": "^3.0.0",

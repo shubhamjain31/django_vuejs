@@ -6,5 +6,7 @@ urlpatterns = [
     path('login/', views.LoginAPI.as_view(), name='login'),
     path('forget-password/', views.ForgetPasswordAPI.as_view(), name='forget-password'),
 
-    path('users/', views.UserAPI.as_view(), name='all-users')
+    path('users/', views.UserAPI.as_view(), name='users'),
+    path('add-user/', views.UserAPI.as_view(), name='users'),
+    path('get-user/<int:id>', views.UserAPI.as_view(), name='users')
 ]

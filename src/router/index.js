@@ -93,6 +93,11 @@ const routes = [
         components: { default: Users },
       },
       {
+        path: "/add-edit-user/:id",
+        // name: "add-edit-user",
+        components: { default: AddEditUser },
+      },
+      {
         path: "/add-edit-user",
         name: "add-edit-user",
         components: { default: AddEditUser },

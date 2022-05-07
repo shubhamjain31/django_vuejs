@@ -47,11 +47,13 @@
                         <td></td>
                       </tr>
                       <tr v-for="(item, index) in all_users.data" :key="item.id">
-                        <th scope="row">{{index}}</th>
+                        <th scope="row">{{index+1}}</th>
                         <td>{{capitalize(item.username)}}</td>
                         <td>{{item.email}}</td>
                         <td>{{format_date(item.date_joined)}}</td>
-                        <td></td>
+                        <td>
+                           <router-link :to="{ path: '/add-edit-user/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit User"></i></router-link>&nbsp; &nbsp; 
+                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'apis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'api_db',
-        'USER': 'api_user',
+        'NAME': 'restapi_db',
+        'USER': 'restapi_user',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
