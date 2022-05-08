@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     created_date 	= models.DateField(auto_now_add=True)
     updated_at 	    = models.DateField(auto_now=True)
     is_verified     = models.BooleanField(default=False)
-    token           = models.CharField(max_length=100, blank=True, null=True)
+    token           = models.CharField(max_length=255, blank=True, null=True)
     ip_address      = models.CharField(max_length=100, blank=True, null=True)
     user_agents     = models.TextField(blank=True, null=True)
 

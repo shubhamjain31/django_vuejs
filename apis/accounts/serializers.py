@@ -21,7 +21,6 @@ class UserSerializer(serializers.ModelSerializer):
     def get_queryset(self):
         _id = self.kwargs['id']
         user = User.objects.get(id=_id)
-        print(id)
         return user
 
 class LoginSerializer(serializers.Serializer):

@@ -78,7 +78,6 @@ class LoginAPI(APIView):
     def post(self, request):
         try:
             data = request.data
-            print(data)
             serializer = LoginSerializer(data=data)
             if serializer.is_valid():
                 username = serializer.data['username']
@@ -94,6 +93,10 @@ class LoginAPI(APIView):
                     })
 
                 refresh = RefreshToken.for_user(user)
+
+                UserProfile.objects.filter(user=user.pk).update(token=refresh.access_token, 
+                                                                ip_address=request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip(),
+                                                                user_agents=request.META['HTTP_USER_AGENT'])
                 return Response({
                     'status': 200,
                     'refresh': str(refresh),
