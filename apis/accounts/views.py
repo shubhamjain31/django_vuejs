@@ -208,7 +208,10 @@ class RegisterAPI(APIView):
         except Exception as e:
             print(e)
 
-class UserAPI(APIView):    
+class UserAPI(APIView):  
+    def get_object(self, _id):
+        return User.objects.get(pk=_id)
+
     def post(self, request):
         try:
             data = request.data
@@ -229,6 +232,28 @@ class UserAPI(APIView):
                 'data':     serializer.data
             })
 
+    def put(self, request, id=None, *args, **kwargs):
+        try:
+            data = request.data
+            obj = self.get_object(id)
+            serializer = UserSerializer(obj, data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   200,
+                'message': 'User Updated!',
+                'data':     serializer.data
+            })
+            
+        except Exception as e:
+            print(e)
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
+
     def get(self, request, id=None, *args, **kwargs):
         try:
             if not id:
@@ -236,6 +261,7 @@ class UserAPI(APIView):
                 serializer = UserSerializer(all_users,  many=True)
             else:
                 user_ = User.objects.get(id=id)
+                user_.password = ''
                 serializer = UserSerializer(user_)
             
             return Response({

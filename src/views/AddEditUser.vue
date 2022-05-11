@@ -15,7 +15,8 @@
               <div class="bg-white border-0">
                 <div class="row align-items-center">
                   <div class="col-8">
-                    <h3 class="mb-0">Add User</h3>
+                    <h3 class="mb-0" v-if="!id">Add User</h3>
+                    <h3 class="mb-0" v-if="id">Edit User</h3>
                   </div>
                   <div class="col-4 text-right">
                     <a href="#!" class="btn btn-sm btn-primary">Settings</a>
@@ -112,6 +113,7 @@ export default {
       this.getuser(this.$route.params.id);
     }
     return {
+      id: this.$route.params.id,
       model: {
         first_name: "",
         last_name: "",
@@ -132,8 +134,7 @@ export default {
           })
           .then(response =>{
             if(response["data"]["status"] === 200){
-              this.get_user = response.data;
-              console.log(this.get_user.data)
+              this.model = response.data.data;
             }
           })
     },
@@ -175,21 +176,40 @@ export default {
           return;
         }
 
-        axios.post("http://localhost:8000/api/add-user/", this.model
-          )
-        .then(function (response) {
-          if(response["data"]["status"] === 200){
-            self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
-            self.reset();
-          }
+        if(this.$route.params.id){
+          axios.put("http://localhost:8000/api/edit-user/"+this.$route.params.id, this.model
+              )
+            .then(function (response) {
+              if(response["data"]["status"] === 200){
+                self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
+                self.reset();
+              }
 
-          if(response["data"]["status"] === 400){
-            self.$toast.error(response["data"]["message"], {"position": "top-right", "duration": 3000});
+              if(response["data"]["status"] === 400){
+                self.$toast.error(response["data"]["message"], {"position": "top-right", "duration": 3000});
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
           }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          else{
+            axios.post("http://localhost:8000/api/add-user/", this.model
+              )
+            .then(function (response) {
+              if(response["data"]["status"] === 200){
+                self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
+                self.reset();
+              }
+
+              if(response["data"]["status"] === 400){
+                self.$toast.error(response["data"]["message"], {"position": "top-right", "duration": 3000});
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
     },
     reset() {
       this.model.first_name = "";
