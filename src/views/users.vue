@@ -53,6 +53,42 @@
                         <td>{{format_date(item.date_joined)}}</td>
                         <td>
                            <router-link :to="{ path: '/add-edit-user/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit User"></i></router-link>&nbsp; &nbsp; 
+                           <i class="fa fa-trash text-danger" @click="toggleModal" style="font-size:20px; cursor: pointer;" title="Delete User"></i>&nbsp; &nbsp; 
+                            <div>
+                              <div
+                                ref="modal"
+                                class="modal fade"
+                                :class="{show, 'd-block': active}"
+                                tabindex="-1"
+                                role="dialog"
+                              >
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Delete User</h5>
+                                      <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                        @click="toggleModal"
+                                      >
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Do you want to delete {{item.id}} this user?</p>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary btn-sm"  @click="toggleModal">Close</button>
+                                      <button type="button" class="btn btn-danger btn-sm" @click="delete(item.id)">Delete</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div v-if="active" class="modal-backdrop fade show"></div>
+                            </div>
                         </td>
                       </tr>
                     </tbody>
@@ -64,6 +100,7 @@
           </card>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -77,6 +114,8 @@ export default {
   data() {
     this.getItems();
   return{
+     active: false,
+      show: false,
     all_users : {},
   }
   },
@@ -108,7 +147,19 @@ export default {
             }
           })
     },
-  }
+
+    delete(id){
+      console.log(id)
+    },
+    toggleModal() {
+      const body = document.querySelector("body");
+      this.active = !this.active;
+      this.active
+        ? body.classList.add("modal-open")
+        : body.classList.remove("modal-open");
+      setTimeout(() => (this.show = !this.show), 10);
+    }
+  },
 };
 </script>
 <style></style>
