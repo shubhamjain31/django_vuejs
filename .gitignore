@@ -20,5 +20,5 @@ yarn-error.log*
 *.sln
 *.sw*
 
-apis/venv
+apis/myenv
 apis/.env
