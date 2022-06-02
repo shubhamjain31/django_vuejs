@@ -82,7 +82,7 @@
                                     
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary btn-sm"  @click="toggleModal">Close</button>
-                                      <button type="button" class="btn btn-danger btn-sm" @click="delete(item.id)">Delete</button>
+                                      <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(item.id)">Delete</button>
                                     </div>
                                   </div>
                                 </div>
@@ -148,8 +148,17 @@ export default {
           })
     },
 
-    delete(id){
-      console.log(id)
+    deleteItem(id){
+      axios.delete('http://localhost:8000/api/delete-user/'+ id,{
+            headers: {
+            Authorization: 'Token ' + localStorage.getItem('token')
+            }
+          })
+          .then(response =>{
+            if(response["data"]["status"] === 200){
+              this.getItems();
+            }
+          })
     },
     toggleModal() {
       const body = document.querySelector("body");

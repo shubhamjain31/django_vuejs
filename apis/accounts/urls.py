@@ -9,5 +9,6 @@ urlpatterns = [
     path('users/', views.UserAPI.as_view(), name='users'),
     path('add-user/', views.UserAPI.as_view(), name='users'),
     path('get-user/<int:id>', views.UserAPI.as_view(), name='users'),
-    path('edit-user/<int:id>', views.UserAPI.as_view(), name='users')
+    path('edit-user/<int:id>', views.UserAPI.as_view(), name='users'),
+    path('delete-user/<int:id>', views.UserAPI.as_view(), name='users')
 ]

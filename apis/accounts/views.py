@@ -272,3 +272,23 @@ class UserAPI(APIView):
             
         except Exception as e:
             print(e)
+
+    def delete(self, request, id=None, *args, **kwargs):
+        try:
+            data = request.data
+            obj = self.get_object(id)
+            # obj.delete()
+
+            return Response({
+                'status':   200,
+                'message': 'User Deleted!',
+                'data':     data
+            })
+            
+        except Exception as e:
+            print(e)
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
