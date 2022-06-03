@@ -39,7 +39,7 @@
           :link="{
             name: 'Employee',
             icon: 'ni ni-single-02 text-yellow',
-            path: '/profile',
+            path: '/employees',
           }"
         />
         <sidebar-item

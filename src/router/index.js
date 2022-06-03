@@ -15,7 +15,7 @@ import ForgetPassword from "../views/ForgetPassword.vue";
 import NewPassword from "../views/NewPassword.vue";
 import Users from "../views/users.vue";
 import AddEditUser from "../views/AddEditUser.vue";
-
+import Employees from "../views/employees.vue";
 
 function authGuard(to, from, next)
 {
@@ -101,6 +101,11 @@ const routes = [
         path: "/add-edit-user",
         name: "add-edit-user",
         components: { default: AddEditUser },
+      },
+      {
+        path: "/employees",
+        name: "employees",
+        components: { default: Employees },
       },
     ],
   },
