@@ -290,5 +290,5 @@ class UserAPI(APIView):
             return Response({
                 'status':   400,
                 'message': 'Something Went Wrong!',
-                'data':     serializer.data
+                'data':     {}
             })

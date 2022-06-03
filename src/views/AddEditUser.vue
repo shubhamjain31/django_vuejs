@@ -19,7 +19,7 @@
                     <h3 class="mb-0" v-if="id">Edit User</h3>
                   </div>
                   <div class="col-4 text-right">
-                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                    <router-link :to="{ path: '/users/'}"><button class="btn btn-sm btn-primary">Back</button></router-link>
                   </div>
                 </div>
               </div>
