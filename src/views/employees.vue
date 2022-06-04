@@ -14,11 +14,13 @@
             <template v-slot:header>
               <div class="bg-white border-0">
                 <div class="row align-items-center">
-                  <div class="col-8">
+                  <div class="col-4">
                     <h3 class="mb-0">All Employees</h3>
                   </div>
-                  <div class="col-4 text-right">
-                    <router-link to="/add-edit-user"><button class="btn btn-sm btn-primary">Add</button></router-link>
+                  <div class="col-8 text-right">
+                    <router-link to="/roles"><button class="btn btn-sm btn-primary">Roles</button></router-link>
+                    <router-link to="/departments"><button class="btn btn-sm btn-primary mx-2">Departments</button></router-link>
+                    <router-link to="/add-edit-user"><button class="btn btn-sm btn-primary">Add Employee</button></router-link>
                   </div>
                 </div>
               </div>
@@ -32,25 +34,31 @@
                     <thead class="text-center">
                       <tr>
                         <th scope="col">Sr No.</th>
+                        <th scope="col">Title</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Sex</th>
                         <th scope="col">Added At</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody class="text-center">
-                      <tr v-if="all_users.length==0">
+                      <tr v-if="all_employees.length==0">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-center font-weight-bold">No User</td>
                         <td></td>
                         <td></td>
+                        <td></td>
                       </tr>
-                      <tr v-for="(item, index) in all_users.data" :key="item.id">
+                      <tr v-for="(item, index) in all_employees.data" :key="item.id">
                         <th scope="row">{{index+1}}</th>
-                        <td>{{capitalize(item.username)}}</td>
+                        <td>{{capitalize(item.title)}}</td>
+                        <td>{{item.username}}</td>
                         <td>{{item.email}}</td>
-                        <td>{{format_date(item.date_joined)}}</td>
+                        <td>{{format_date(item.created)}}</td>
+                        <td>{{item.sex}}</td>
                         <td>
                            <router-link :to="{ path: '/add-edit-user/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit User"></i></router-link>&nbsp; &nbsp; 
                            <i class="fa fa-trash text-danger" @click="toggleModal" style="font-size:20px; cursor: pointer;" title="Delete User"></i>&nbsp; &nbsp; 
@@ -107,7 +115,7 @@
 <script>
 import axios from "axios";
 import moment from 'moment'
-// this.all_users = [];
+// this.all_employees = [];
 
 export default {
   name: "employees",
@@ -116,7 +124,7 @@ export default {
   return{
      active: false,
       show: false,
-    all_users : {},
+    all_employees : {},
   }
   },
   methods: {
@@ -136,14 +144,14 @@ export default {
     },
 
     getItems(){
-        axios.get('http://localhost:8000/api/users',{
+        axios.get('http://localhost:8000/api/employees',{
             headers: {
             Authorization: 'Token ' + localStorage.getItem('token')
             }
           })
           .then(response =>{
             if(response["data"]["status"] === 200){
-              this.all_users = response.data;
+              this.all_employees = response.data;
             }
           })
     },

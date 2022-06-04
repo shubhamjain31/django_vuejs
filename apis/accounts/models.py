@@ -7,12 +7,12 @@ from home.helpers import *
 
 class UserProfile(models.Model):
     user            = models.OneToOneField(User, on_delete=models.CASCADE)
-    mobile          = models.CharField(max_length=100, blank=True, null=True)
+    mobile          = models.CharField(max_length=200, blank=True, null=True)
     created_date 	= models.DateField(auto_now_add=True)
     updated_at 	    = models.DateField(auto_now=True)
     is_verified     = models.BooleanField(default=False)
     token           = models.CharField(max_length=255, blank=True, null=True)
-    ip_address      = models.CharField(max_length=100, blank=True, null=True)
+    ip_address      = models.CharField(max_length=200, blank=True, null=True)
     user_agents     = models.TextField(blank=True, null=True)
 
     def __str__(self):
