@@ -63,10 +63,10 @@
                                 tabindex="-1"
                                 role="dialog"
                               >
-                                <!-- <div class="modal-dialog" role="document">
+                                <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Delete User</h5>
+                                      <h5 class="modal-title">Delete Role</h5>
                                       <button
                                         type="button"
                                         class="close"
@@ -78,15 +78,15 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      <p>Do you want to delete {{item.id}} this user?</p>
+                                      <p>Do you want to delete {{item.id}} role?</p>
                                     </div>
                                     
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary btn-sm"  @click="toggleModal">Close</button>
-                                      <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(item.id)">Delete</button>
+                                      <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(item.id), toggleModal">Delete</button>
                                     </div>
                                   </div>
-                                </div> -->
+                                </div>
                               </div>
                               <div v-if="active" class="modal-backdrop fade show"></div>
                             </div>
@@ -150,7 +150,7 @@ export default {
     },
 
     deleteItem(id){
-      axios.delete('http://localhost:8000/api/role-user/'+ id,{
+      axios.delete('http://localhost:8000/api/delete-role/'+ id,{
             headers: {
             Authorization: 'Token ' + localStorage.getItem('token')
             }

@@ -277,7 +277,7 @@ class UserAPI(APIView):
         try:
             data = request.data
             obj = self.get_object(id)
-            # obj.delete()
+            obj.delete()
 
             return Response({
                 'status':   200,
