@@ -8,7 +8,7 @@ class RoleSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Role
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'created', 'id']
 
 class DepartmentSerializer(serializers.ModelSerializer):
     
