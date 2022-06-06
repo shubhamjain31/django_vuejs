@@ -18,6 +18,7 @@ import AddEditUser from "../views/AddEditUser.vue";
 import Employees from "../views/employees.vue";
 import Roles from "../views/Roles.vue";
 import AddEditRole from "../views/AddEditRole.vue";
+import Departments from "../views/Departments.vue";
 
 function authGuard(to, from, next)
 {
@@ -122,6 +123,11 @@ const routes = [
       {
         path: "/add-edit-role/:id",
         components: { default: AddEditRole },
+      },
+      {
+        path: "/departments",
+        name: "departments",
+        components: { default: Departments },
       },
     ],
   },

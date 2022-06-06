@@ -2,8 +2,8 @@
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <side-bar
       :background-color="sidebarBackground"
-      short-title="Argon"
-      title="Argon"
+      short-title="HRM"
+      title="HRM"
     >
       <template v-slot:links>
         <sidebar-item
@@ -37,7 +37,7 @@
         />
         <sidebar-item
           :link="{
-            name: 'Employee',
+            name: 'Employees',
             icon: 'ni ni-single-02 text-yellow',
             path: '/employees',
           }"
@@ -60,7 +60,7 @@
           :link="{
             name: 'Logout',
             icon: 'ni ni-user-run text-red',
-            path: '/tables',
+            path: '/logout',
           }"
         />
       </template>

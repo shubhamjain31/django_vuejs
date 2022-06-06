@@ -90,6 +90,28 @@ class RoleAPI(APIView):
                 'data':     {}
             })
 
+class DepartmentAPI(APIView):
+    def get_object(self, _id):
+        return Department.objects.get(pk=_id)
+
+    def get(self, request, id=None, *args, **kwargs):
+        try:
+            if not id:
+                all_departments = Department.objects.all()
+                serializer = DepartmentSerializer(all_departments,  many=True)
+            else:
+                role_ = Department.objects.get(id=id)
+                serializer = DepartmentSerializer(role_)
+            
+            return Response({
+                    'status':   200,
+                    'message': 'All Departments',
+                    'data':     serializer.data
+                })
+            
+        except Exception as e:
+            print(e)
+
 class EmployeeAPI(APIView):
     def get_object(self, _id):
         return Employee.objects.get(pk=_id)
