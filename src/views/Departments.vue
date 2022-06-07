@@ -53,7 +53,7 @@
                         <td>{{item.description}}</td>
                         <td>{{format_date(item.created)}}</td>
                         <td>
-                           <router-link :to="{ path: '/add-edit-role/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit Role"></i></router-link>&nbsp; &nbsp; 
+                           <router-link :to="{ path: '/add-edit-department/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit Role"></i></router-link>&nbsp; &nbsp; 
                            <i class="fa fa-trash text-danger" @click="toggleModal" style="font-size:20px; cursor: pointer;" title="Delete Role"></i>&nbsp; &nbsp; 
                             <div>
                               <div

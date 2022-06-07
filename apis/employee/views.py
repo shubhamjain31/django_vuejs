@@ -112,6 +112,68 @@ class DepartmentAPI(APIView):
         except Exception as e:
             print(e)
 
+    def post(self, request):
+        try:
+            data = request.data
+            serializer = DepartmentSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   200,
+                'message': 'Department Created!',
+                'data':     serializer.data
+            })
+            
+        except Exception as e:
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
+
+    def put(self, request, id=None, *args, **kwargs):
+        try:
+            data = request.data
+            obj = self.get_object(id)
+            serializer = DepartmentSerializer(obj, data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   200,
+                'message': 'Department Updated!',
+                'data':     serializer.data
+            })
+            
+        except Exception as e:
+            print(e)
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })
+
+    def delete(self, request, id=None, *args, **kwargs):
+        try:
+            data = request.data
+            obj = self.get_object(id)
+            obj.delete()
+
+            return Response({
+                'status':   200,
+                'message': 'Department Deleted!',
+                'data':     data
+            })
+            
+        except Exception as e:
+            print(e)
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     {}
+            })
+
 class EmployeeAPI(APIView):
     def get_object(self, _id):
         return Employee.objects.get(pk=_id)
