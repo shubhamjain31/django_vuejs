@@ -20,7 +20,7 @@
                   <div class="col-8 text-right">
                     <router-link to="/roles"><button class="btn btn-sm btn-primary">Roles</button></router-link>
                     <router-link to="/departments"><button class="btn btn-sm btn-primary mx-2">Departments</button></router-link>
-                    <router-link to="/add-edit-user"><button class="btn btn-sm btn-primary">Add Employee</button></router-link>
+                    <router-link to="/add-edit-employee"><button class="btn btn-sm btn-primary">Add Employee</button></router-link>
                   </div>
                 </div>
               </div>
@@ -47,12 +47,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="text-center font-weight-bold">No User</td>
+                        <td class="text-center font-weight-bold">No Employee</td>
                         <td></td>
                         <td></td>
                         <td></td>
                       </tr>
-                      <tr v-for="(item, index) in all_employees.data" :key="item.id">
+                      <tr v-for="(item, index) in all_employees" :key="item.id">
                         <th scope="row">{{index+1}}</th>
                         <td>{{capitalize(item.title)}}</td>
                         <td>{{item.username}}</td>
@@ -151,7 +151,7 @@ export default {
           })
           .then(response =>{
             if(response["data"]["status"] === 200){
-              this.all_employees = response.data;
+              this.all_employees = response.data.data;
             }
           })
     },
