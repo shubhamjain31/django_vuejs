@@ -245,8 +245,8 @@
                     />
                   </div>
                   <div class="col-lg-3">
-                    <label for="exampleFormControlSelect1" class="font-weight-bold">Education*</label>
-                    <select class="form-control" v-model="model.education">
+                    <label for="exampleFormControlSelect1" class="font-weight-bold">Employee Type*</label>
+                    <select class="form-control" v-model="model.employeetype">
                         <option value="FULL_TIME">Full-Time</option>
                         <option value="PART_TIME">Part-Time</option>
                         <option value="CONTRACT">Contract</option>
@@ -299,7 +299,6 @@ export default {
       id: this.$route.params.id,
       model: {
         title: "MR",
-        description: "",
         first_name: "",
         last_name: "",
         sex: 'MALE',
@@ -309,6 +308,18 @@ export default {
         religion: "",
         nationality: "",
         department: "",
+        hometown: "",
+        region: "AHAFO",
+        residence: "",
+        address: "",
+        education: "SENIORHIGH",
+        lastwork: "",
+        position: "",
+        ssnitnumber: "",
+        tinnumber: "",
+        startdate: "",
+        employeetype: "FULL_TIME",
+        dateissued: "",
       },
     };
   },
@@ -328,15 +339,96 @@ export default {
     submitForm() {
         let self = this;
 
-         if(this.model.name.trim().length===0){
+         if(this.model.title.trim().length===0){
           self.$toast.error(`Enter Name`, {"position": "top-right", "duration": 3000});
           return;
         }
 
-        if(this.model.description.trim().length===0){
-          self.$toast.error(`Enter Description`, {"position": "top-right", "duration": 3000});
+        // if(this.model.description.trim().length===0){
+        //   self.$toast.error(`Enter Description`, {"position": "top-right", "duration": 3000});
+        //   return;
+        // }
+
+        if(this.model.first_name.trim().length===0){
+          self.$toast.error(`Enter First Name`, {"position": "top-right", "duration": 3000});
           return;
         }
+
+        if(this.model.last_name.trim().length===0){
+          self.$toast.error(`Enter Last Name`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.bio.trim().length===0){
+          self.$toast.error(`Enter Bio`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.other_name.trim().length===0){
+          self.$toast.error(`Enter Other Name`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.birthday.trim().length===0){
+          self.$toast.error(`Enter Birthday`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.religion.trim().length===0){
+          self.$toast.error(`Enter Religion`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.nationality.trim().length===0){
+          self.$toast.error(`Enter Nationality`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.hometown.trim().length===0){
+          self.$toast.error(`Enter Hometown`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.residence.trim().length===0){
+          self.$toast.error(`Enter Residence`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
+        if(this.model.address.trim().length===0){
+          self.$toast.error(`Enter Address`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.lastwork.trim().length===0){
+          self.$toast.error(`Enter Lastwork`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.position.trim().length===0){
+          self.$toast.error(`Enter Position`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.ssnitnumber.trim().length===0){
+          self.$toast.error(`Enter Ssnit Number`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.tinnumber.trim().length===0){
+          self.$toast.error(`Enter Tin Number`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.startdate.trim().length===0){
+          self.$toast.error(`Enter Start Date`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+
+        if(this.model.dateissued.trim().length===0){
+          self.$toast.error(`Enter Date Issued`, {"position": "top-right", "duration": 3000});
+          return;
+        }
+        
 
         if(this.$route.params.id){
           axios.put("http://localhost:8000/api/edit-employee/"+this.$route.params.id, this.model
@@ -375,7 +467,6 @@ export default {
     },
     reset() {
       this.model.name = "";
-      this.model.description = "";
     },
   },
 };
