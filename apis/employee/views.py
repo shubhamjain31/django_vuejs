@@ -183,6 +183,12 @@ class EmployeeAPI(APIView):
             if not id:
                 all_employees = Employee.objects.all()
                 serializer = EmployeeSerializer(all_employees,  many=True)
+
+                all_departments = Department.objects.all()
+                serializer1 = DepartmentSerializer(all_departments,  many=True)
+
+                all_roles = Role.objects.all()
+                serializer2 = RoleSerializer(all_roles,  many=True)
             else:
                 employee_ = Employee.objects.get(id=id)
                 serializer = EmployeeSerializer(employee_)
@@ -190,8 +196,32 @@ class EmployeeAPI(APIView):
             return Response({
                     'status':   200,
                     'message': 'All Employees',
-                    'data':     serializer.data
+                    'data':     serializer.data,
+                    'data1':    serializer1.data,
+                    'data2':    serializer2.data
+
                 })
             
         except Exception as e:
             print(e)
+
+    def post(self, request):
+        try:
+            data = request.data
+            print(data)
+            serializer = EmployeeSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response({
+                'status':   200,
+                'message': 'Employee Created!',
+                'data':     serializer.data
+            })
+            
+        except Exception as e:
+            return Response({
+                'status':   400,
+                'message': 'Something Went Wrong!',
+                'data':     serializer.data
+            })

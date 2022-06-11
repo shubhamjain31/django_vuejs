@@ -40,9 +40,9 @@
                         <option value="MADAM">Madam</option>
                     </select>
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-3" v-if="id">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Profile*</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" @change="uploadImage($event)">
                   </div>
                   <div class="col-lg-3">
                     <base-input
@@ -50,7 +50,7 @@
                       label="First Name*"
                       placeholder="First Name"
                       input-classes="form-control-alternative"
-                      v-model="model.first_name"
+                      v-model="model.firstname"
                     />
                   </div>
                   <div class="col-lg-3">
@@ -59,7 +59,7 @@
                       label="Last Name*"
                       placeholder="Last Name"
                       input-classes="form-control-alternative"
-                      v-model="model.last_name"
+                      v-model="model.lastname"
                     />
                   </div>
                 </div>
@@ -89,7 +89,7 @@
                       label="Other Name*"
                       placeholder="Other Name"
                       input-classes="form-control-alternative"
-                      v-model="model.other_name"
+                      v-model="model.othername"
                     />
                   </div>
                   <div class="col-lg-3">
@@ -99,6 +99,7 @@
                       placeholder="Birthday"
                       input-classes="form-control-alternative"
                       v-model="model.birthday"
+                      type="date"
                     />
                   </div>
                 </div>
@@ -123,13 +124,11 @@
                     />
                   </div>
                   <div class="col-lg-3">
-                    <base-input
-                      alternative=""
-                      label="Department*"
-                      placeholder="Department"
-                      input-classes="form-control-alternative"
-                      v-model="model.department"
-                    />
+                    <!-- working on this part -->
+                   <label for="exampleFormControlSelect1" class="font-weight-bold">Departments*</label>
+                    <select class="form-control" v-model="model.department"  v-for="(item, index) in departments" :key="item.id">
+                        <option value="SENIORHIGH">Senior High School</option>
+                    </select>
                   </div>
                   <div class="col-lg-3">
                     <base-input
@@ -242,6 +241,7 @@
                       placeholder="Start Date"
                       input-classes="form-control-alternative"
                       v-model="model.startdate"
+                      type="date"
                     />
                   </div>
                   <div class="col-lg-3">
@@ -269,6 +269,7 @@
                       placeholder="Date Issued"
                       input-classes="form-control-alternative"
                       v-model="model.dateissued"
+                      type="date"
                     />
                   </div>
                 </div>
@@ -295,15 +296,18 @@ export default {
     if(this.$route.params.id){
       this.getuser(this.$route.params.id);
     }
+    else{
+      this.getdata();
+    }
     return {
       id: this.$route.params.id,
       model: {
         title: "MR",
-        first_name: "",
-        last_name: "",
+        firstname: "",
+        lastname: "",
         sex: 'MALE',
         bio: "",
-        other_name: "",
+        othername: "",
         birthday: "",
         religion: "",
         nationality: "",
@@ -321,6 +325,8 @@ export default {
         employeetype: "FULL_TIME",
         dateissued: "",
       },
+      roles: [],
+      departments: [],
     };
   },
   methods: {
@@ -336,6 +342,24 @@ export default {
             }
           })
     },
+    getdata(){
+        axios.get('http://localhost:8000/api/employees/',{
+            headers: {
+            Authorization: 'Token ' + localStorage.getItem('token')
+            }
+          })
+          .then(response =>{
+            if(response["data"]["status"] === 200){
+              this.roles = response.data.data2;
+              this.departments = response.data.data1;
+            }
+          })
+    },
+    uploadImage(event) {
+    let data = new FormData();
+    data.append('name', 'profile');
+    data.append('file', event.target.files[0]); 
+    },
     submitForm() {
         let self = this;
 
@@ -349,12 +373,12 @@ export default {
         //   return;
         // }
 
-        if(this.model.first_name.trim().length===0){
+        if(this.model.firstname.trim().length===0){
           self.$toast.error(`Enter First Name`, {"position": "top-right", "duration": 3000});
           return;
         }
 
-        if(this.model.last_name.trim().length===0){
+        if(this.model.lastname.trim().length===0){
           self.$toast.error(`Enter Last Name`, {"position": "top-right", "duration": 3000});
           return;
         }
@@ -364,7 +388,7 @@ export default {
           return;
         }
         
-        if(this.model.other_name.trim().length===0){
+        if(this.model.othername.trim().length===0){
           self.$toast.error(`Enter Other Name`, {"position": "top-right", "duration": 3000});
           return;
         }
@@ -428,6 +452,7 @@ export default {
           self.$toast.error(`Enter Date Issued`, {"position": "top-right", "duration": 3000});
           return;
         }
+        console.log(this.model);
         
 
         if(this.$route.params.id){

@@ -15,4 +15,5 @@ urlpatterns = [
     path('delete-department/<int:id>', views.DepartmentAPI.as_view(), name='departments'),
 
     path('employees/', views.EmployeeAPI.as_view(), name='employees'),
+    path('add-employee/', views.EmployeeAPI.as_view(), name='employees'),
 ]
