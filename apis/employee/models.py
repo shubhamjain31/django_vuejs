@@ -429,6 +429,7 @@ class Employee(models.Model):
         added : March, 03 2019 - 11:08 PM
         '''
         get_id              = self.employeeid     #grab employee_id number from submitted form field
+        print(get_id)
         data                = code_format(get_id)
         self.employeeid     = data       #pass the new code to the employee_id as its orifinal or actual code
         super().save(*args,**kwargs) # call the parent save method

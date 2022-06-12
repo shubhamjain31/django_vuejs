@@ -211,7 +211,10 @@ class EmployeeAPI(APIView):
             print(data)
             serializer = EmployeeSerializer(data=data)
             if serializer.is_valid():
+                print('jdsdsi')
                 serializer.save()
+            else:
+                print(serializer.errors)
 
             return Response({
                 'status':   200,

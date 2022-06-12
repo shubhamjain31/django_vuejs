@@ -93,14 +93,15 @@ class LoginAPI(APIView):
                     })
 
                 refresh = RefreshToken.for_user(user)
+                token   = refresh.access_token
 
-                UserProfile.objects.filter(user=user.pk).update(token=refresh.access_token, 
+                UserProfile.objects.filter(user=user.pk).update(token=token, 
                                                                 ip_address=request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip(),
                                                                 user_agents=request.META['HTTP_USER_AGENT'])
                 return Response({
                     'status': 200,
                     'refresh': str(refresh),
-                    'access': str(refresh.access_token)
+                    'access': str(token)
                 })
 
             return Response({

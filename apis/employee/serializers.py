@@ -17,13 +17,12 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = ['name', 'description', 'created', 'id']
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    user_set        = UserSerializer(many=True)
-    role_set        = RoleSerializer(many=True)
-    department_set  = DepartmentSerializer(many=True)
+    # user_set        = UserSerializer(many=True)
+    # role_set        = RoleSerializer(many=True)
+    # department_set  = DepartmentSerializer(many=True)
 
     class Meta:
         model = Employee
-        fields = ['user_set', 'title', 'image', 'firstname', 'lastname', 'othername', 'sex', 'email', 'tel', 'bio', 'birthday', 'religion',
+        fields = ['title', 'image', 'firstname', 'lastname', 'othername', 'sex', 'email', 'tel', 'bio', 'birthday', 'religion',
                 'nationality', 'hometown', 'region', 'residence', 'address', 'education', 'lastwork', 'position', 'ssnitnumber', 'id',
-                'tinnumber', 'department_set', 'role_set', 'startdate', 'employeetype', 'employeeid', 'dateissued', 'is_blocked', 'is_deleted'
-                'created']
+                'tinnumber', 'department', 'role', 'startdate', 'employeetype', 'employeeid', 'dateissued']

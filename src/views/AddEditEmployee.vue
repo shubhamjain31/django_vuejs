@@ -32,12 +32,19 @@
                   <div class="col-lg-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Title*</label>
                     <select class="form-control" v-model="model.title">
-                        <option value="MR">Mr</option>
-                        <option value="MRS">Mrs</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
                         <option value="MSS">Mss</option>
-                        <option value="DR">Dr</option>
-                        <option value="SIR">Sir</option>
-                        <option value="MADAM">Madam</option>
+                        <option value="Mss">Dr</option>
+                        <option value="Sir">Sir</option>
+                        <option value="Madam">Madam</option>
+                    </select>
+                  </div>
+                   <div class="col-lg-3">
+                   <label for="exampleFormControlSelect1" class="font-weight-bold">Roles*</label>
+                    <select class="form-control"  v-model="model.user_set">
+                        <option value="">----Select----</option>
+                        <option v-for="item in roles" :value="item.id"  :key="item.id">{{item.name}}</option>
                     </select>
                   </div>
                   <div class="col-lg-3" v-if="id">
@@ -68,10 +75,10 @@
                   <div class="col-lg-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Sex*</label>
                     <select class="form-control" v-model="model.sex">
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="OTHER">Other</option>
-                        <option value="NOT_KNOWN">Not Known</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value=">Not Known">Not Known</option>
                     </select>
                   </div>
                   <div class="col-lg-3">
@@ -124,10 +131,10 @@
                     />
                   </div>
                   <div class="col-lg-3">
-                    <!-- working on this part -->
                    <label for="exampleFormControlSelect1" class="font-weight-bold">Departments*</label>
-                    <select class="form-control" v-model="model.department"  v-for="(item, index) in departments" :key="item.id">
-                        <option value="SENIORHIGH">Senior High School</option>
+                    <select class="form-control"  v-model="model.department_set">
+                        <option value="">----Select----</option>
+                        <option v-for="item in departments" :value="item.id" :key="item.id">{{item.name}}</option>
                     </select>
                   </div>
                   <div class="col-lg-3">
@@ -145,22 +152,22 @@
                    <div class="col-lg-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Region*</label>
                     <select class="form-control" v-model="model.region">
-                        <option value="AHAFO">Ahafo</option>
-                        <option value="ASHANTI">Ashanti</option>
-                        <option value="BONOEAST">Bono East</option>
-                        <option value="BONO">Bono</option>
-                        <option value="CENTRAL">Central</option>
-                        <option value="EASTERN">Eastern</option>
-                        <option value="GREATER">Greater Accra</option>
-                        <option value="NORTHEAST">Northen East</option>
-                        <option value="NORTHERN">Northen</option>
-                        <option value="OTI">Oti</option>
-                        <option value="SAVANNAH">Savannah</option>
-                        <option value="UPPEREAST">Upper East</option>
-                        <option value="UPPERWEST">Upper West</option>
-                        <option value="VOLTA">Volta</option>
-                        <option value="WESTERNNORTH">Western North</option>
-                        <option value="WESTERN">Western</option>
+                        <option value="Ahafo">Ahafo</option>
+                        <option value="Ashanti">Ashanti</option>
+                        <option value="Bono East">Bono East</option>
+                        <option value="Bono">Bono</option>
+                        <option value="Central">Central</option>
+                        <option value="Eastern">Eastern</option>
+                        <option value="Greater">Greater Accra</option>
+                        <option value="Northen East">Northen East</option>
+                        <option value="Northen">Northen</option>
+                        <option value="Oti">Oti</option>
+                        <option value="Savannah">Savannah</option>
+                        <option value="Upper East">Upper East</option>
+                        <option value="Upper West">Upper West</option>
+                        <option value="Volta">Volta</option>
+                        <option value="Western North">Western North</option>
+                        <option value="Western">Western</option>
                     </select>
                   </div>
                   <div class="col-lg-3">
@@ -184,12 +191,12 @@
                   <div class="col-lg-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Education*</label>
                     <select class="form-control" v-model="model.education">
-                        <option value="SENIORHIGH">Senior High School</option>
-                        <option value="JUNIORHIGH">Junior High School</option>
-                        <option value="PRIMARY">Primary School</option>
-                        <option value="TERTIARY">Tertiary/University/Polytechnic</option>
-                        <option value="OLEVEL">OLevel</option>
-                        <option value="OTHER">Other</option>
+                        <option value="Senior High School">Senior High School</option>
+                        <option value="Junior High School">Junior High School</option>
+                        <option value="Primary School">Primary School</option>
+                        <option value="Tertiary/University/Polytechnic">Tertiary/University/Polytechnic</option>
+                        <option value="OLevel">OLevel</option>
+                        <option value="Other">Other</option>
                     </select>
                   </div>
                 </div>
@@ -247,13 +254,13 @@
                   <div class="col-lg-3">
                     <label for="exampleFormControlSelect1" class="font-weight-bold">Employee Type*</label>
                     <select class="form-control" v-model="model.employeetype">
-                        <option value="FULL_TIME">Full-Time</option>
-                        <option value="PART_TIME">Part-Time</option>
-                        <option value="CONTRACT">Contract</option>
-                        <option value="INTERN">Intern</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Intern">Intern</option>
                     </select>
                   </div>
-                  <div class="col-lg-3">
+                  <!-- <div class="col-lg-3">
                     <base-input
                       alternative=""
                       label="SSNIT Number*"
@@ -261,7 +268,7 @@
                       input-classes="form-control-alternative"
                       v-model="model.ssnitnumber"
                     />
-                  </div>
+                  </div> -->
                   <div class="col-lg-3">
                     <base-input
                       alternative=""
@@ -302,27 +309,28 @@ export default {
     return {
       id: this.$route.params.id,
       model: {
-        title: "MR",
+        title: "Mr",
+        user_set: "",
         firstname: "",
         lastname: "",
-        sex: 'MALE',
+        sex: '>Not Known',
         bio: "",
         othername: "",
         birthday: "",
         religion: "",
         nationality: "",
-        department: "",
+        department_set: "",
         hometown: "",
-        region: "AHAFO",
+        region: "Ahafo",
         residence: "",
         address: "",
-        education: "SENIORHIGH",
+        education: "Senior High School",
         lastwork: "",
         position: "",
         ssnitnumber: "",
         tinnumber: "",
         startdate: "",
-        employeetype: "FULL_TIME",
+        employeetype: "Full-Time",
         dateissued: "",
       },
       roles: [],
@@ -352,6 +360,7 @@ export default {
             if(response["data"]["status"] === 200){
               this.roles = response.data.data2;
               this.departments = response.data.data1;
+              console.log(this.departments,this.roles)
             }
           })
     },
@@ -456,8 +465,11 @@ export default {
         
 
         if(this.$route.params.id){
-          axios.put("http://localhost:8000/api/edit-employee/"+this.$route.params.id, this.model
-              )
+          axios.put("http://localhost:8000/api/edit-employee/"+this.$route.params.id, this.model,{
+            headers: {
+            Authorization: 'Token ' + localStorage.getItem('token')
+            }
+          })
             .then(function (response) {
               if(response["data"]["status"] === 200){
                 self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
@@ -473,8 +485,11 @@ export default {
             });
           }
           else{
-            axios.post("http://localhost:8000/api/add-employee/", this.model
-              )
+            axios.post("http://localhost:8000/api/add-employee/", this.model,{
+            headers: {
+            Authorization: 'Token ' + localStorage.getItem('token')
+            }
+          })
             .then(function (response) {
               if(response["data"]["status"] === 200){
                 self.$toast.success(response["data"]["message"], {"position": "top-right", "duration": 3000});
