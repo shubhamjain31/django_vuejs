@@ -21,6 +21,8 @@ import AddEditRole from "../views/AddEditRole.vue";
 import Departments from "../views/Departments.vue";
 import AddEditEmployee from "../views/AddEditEmployee.vue";
 import AddEditDepartment from "../views/AddEditDepartment.vue";
+import Religion from "../views/Religion.vue";
+import AddEditReligion from "../views/AddEditReligion.vue";
 
 function authGuard(to, from, next)
 {
@@ -144,6 +146,16 @@ const routes = [
       {
         path: "/add-edit-department/:id",
         components: { default: AddEditDepartment },
+      },
+      {
+        path: "/religions",
+        name: "religions",
+        components: { default: Religion },
+      },
+      {
+        path: "/add-edit-religion",
+        name: "add-edit-religion",
+        components: { default: AddEditReligion },
       },
     ],
   },

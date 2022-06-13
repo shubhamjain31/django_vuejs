@@ -14,56 +14,47 @@
             <template v-slot:header>
               <div class="bg-white border-0">
                 <div class="row align-items-center">
-                  <div class="col-4">
-                    <h3 class="mb-0">All Employees</h3>
+                  <div class="col-8">
+                    <h3 class="mb-0">All Religions</h3>
                   </div>
-                  <div class="col-8 text-right">
-                    <router-link to="/roles"><button class="btn btn-sm btn-primary">Roles</button></router-link>
-                    <router-link to="/departments"><button class="btn btn-sm btn-primary ml-2">Departments</button></router-link>
-                    <router-link to="/nationalities"><button class="btn btn-sm btn-primary ml-2">Nationalities</button></router-link>
-                    <router-link to="/religions"><button class="btn btn-sm btn-primary ml-2">Religions</button></router-link>
-                    <router-link to="/add-edit-employee"><button class="btn btn-sm btn-primary ml-2">Add Employee</button></router-link>
+                  <div class="col-4 text-right">
+                    <router-link to="/employees"><button class="btn btn-sm btn-primary">Back</button></router-link>
+                    <router-link to="/add-edit-role"><button class="btn btn-sm btn-primary ml-2">Add</button></router-link>
                   </div>
                 </div>
               </div>
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Employee information</h6>
+              <h6 class="heading-small text-muted mb-4">Religion information</h6>
               <div class="pl-lg-4">
                 <div class="row">
                  <table class="table">
                     <thead class="text-center">
                       <tr>
                         <th scope="col">Sr No.</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Sex</th>
-                        <th scope="col">Added At</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Created At</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody class="text-center">
-                      <tr v-if="all_employees.length==0">
+                      <tr v-if="all_roles.length==0">
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td class="text-center font-weight-bold">No Employee</td>
-                        <td></td>
+                        <td class="text-center font-weight-bold">No Role</td>
                         <td></td>
                         <td></td>
                       </tr>
-                      <tr v-for="(item, index) in all_employees" :key="item.id">
+                      <tr v-for="(item, index) in all_roles" :key="item.id">
                         <th scope="row">{{index+1}}</th>
-                        <td>{{capitalize(item.title)}}</td>
-                        <td>{{item.username}}</td>
-                        <td>{{item.email}}</td>
+                        <td>{{capitalize(item.name)}}</td>
+                        <td>{{item.description}}</td>
                         <td>{{format_date(item.created)}}</td>
-                        <td>{{item.sex}}</td>
                         <td>
-                           <router-link :to="{ path: '/add-edit-user/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit User"></i></router-link>&nbsp; &nbsp; 
-                           <i class="fa fa-trash text-danger" @click="toggleModal" style="font-size:20px; cursor: pointer;" title="Delete User"></i>&nbsp; &nbsp; 
+                           <router-link :to="{ path: '/add-edit-role/'+item.id}"><i class="fa fa-edit text-info" style="font-size:20px; cursor: pointer;" title="Edit Role"></i></router-link>&nbsp; &nbsp; 
+                           <i class="fa fa-trash text-danger" @click="toggleModal" style="font-size:20px; cursor: pointer;" title="Delete Role"></i>&nbsp; &nbsp; 
                             <div>
                               <div
                                 ref="modal"
@@ -72,10 +63,10 @@
                                 tabindex="-1"
                                 role="dialog"
                               >
-                                <!-- <div class="modal-dialog" role="document">
+                                <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Delete User</h5>
+                                      <h5 class="modal-title">Delete Religion</h5>
                                       <button
                                         type="button"
                                         class="close"
@@ -87,15 +78,15 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      <p>Do you want to delete {{item.id}} this user?</p>
+                                      <p>Do you want to delete {{item.id}} role?</p>
                                     </div>
                                     
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary btn-sm"  @click="toggleModal">Close</button>
-                                      <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(item.id)">Delete</button>
+                                      <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(item.id), toggleModal">Delete</button>
                                     </div>
                                   </div>
-                                </div> -->
+                                </div>
                               </div>
                               <div v-if="active" class="modal-backdrop fade show"></div>
                             </div>
@@ -117,16 +108,16 @@
 <script>
 import axios from "axios";
 import moment from 'moment'
-// this.all_employees = [];
+// this.all_roles = [];
 
 export default {
-  name: "employees",
+  name: "Roles",
   data() {
     this.getItems();
   return{
      active: false,
       show: false,
-    all_employees : {},
+    all_roles : {},
   }
   },
   methods: {
@@ -146,20 +137,20 @@ export default {
     },
 
     getItems(){
-        axios.get('http://localhost:8000/api/employees',{
+        axios.get('http://localhost:8000/api/religions',{
             headers: {
             Authorization: 'Token ' + localStorage.getItem('token')
             }
           })
           .then(response =>{
-            if(response["data"]["status"] === 200){
-              this.all_employees = response.data.data;
+              if(response["data"]["status"] === 200){
+                  this.all_roles = response.data.data;
             }
           })
     },
 
     deleteItem(id){
-      axios.delete('http://localhost:8000/api/delete-user/'+ id,{
+      axios.delete('http://localhost:8000/api/delete-religion/'+ id,{
             headers: {
             Authorization: 'Token ' + localStorage.getItem('token')
             }
